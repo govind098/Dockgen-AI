@@ -2,16 +2,34 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
 import dockerfileRoutes from './routes/dockerfile.routes.clean';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'];
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Security headers
+app.use(helmet());
+
+// Body parser
+app.use(express.json({ limit: '10mb' }));
 
 // Routes
 app.use('/api', dockerfileRoutes);
