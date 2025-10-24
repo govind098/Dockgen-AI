@@ -9,33 +9,33 @@ MongoDB (Atlas or local, see .env.example)
 Docker (for Docker build/push features)
 
 1. Clone the Repository
-git clone https://github.com/govind098/Dockgen-AI.git
+git clone https://github.com/govind098/Dockgen-AI.git :
 cd Dockgen-AI
 
 2. Backend Setup
 cd backend
-cp .env.example .env   # Edit .env with your real secrets and config
+cp .env.example .env   # Edit .env with your real secrets and config:
 npm install
 
 Set up your MongoDB URI, Gemini API key, Docker credentials, and allowed origins in .env.
 
-Start Backend (Development)
+Start Backend (Development):
 npm run dev
 
-Build & Start Backend (Production)
+Build & Start Backend (Production):
 npm run build
 npm start
 
-3. Frontend Setup
+3. Frontend Setup:
 cd ../frontend
 npm install
 
 Set NEXT_PUBLIC_API_URL in your deployment environment or .env.local (for local dev).
 
-Start Frontend (Development)
+Start Frontend (Development):
 npm run dev
 
-Build & Start Frontend (Production)
+Build & Start Frontend (Production):
 npm run build
 npm start
 
